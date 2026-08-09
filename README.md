@@ -24,6 +24,7 @@ Inventory · POS Billing · Sales Analytics · Reports · AI Assistant
 
 ---
 
+
 ## 🌟 Overview
 
 **Dukaan AI** is a self-hosted shop management application designed for small businesses such as:
@@ -652,3 +653,13 @@ Built for shopkeepers who would rather **run their business than fight their sof
 ⭐ **If you find this project useful, consider giving it a star!**
 
 </div>
+
+<img width="1651" height="831" alt="image" src="https://github.com/user-attachments/assets/3ab9dacc-7f4d-431a-8400-4492c508aef5" />
+<img width="1611" height="430" alt="image" src="https://github.com/user-attachments/assets/fb8b450e-2db3-49ec-8d55-ab98d708b248" />
+<img width="1483" height="828" alt="image" src="https://github.com/user-attachments/assets/6f48111d-8d78-4a54-bc0f-f2b6884c8aea" />
+<img width="1648" height="813" alt="image" src="https://github.com/user-attachments/assets/ae18192e-7ba9-4d7d-a43f-52e5d21aea08" />
+
+
+
+
+
