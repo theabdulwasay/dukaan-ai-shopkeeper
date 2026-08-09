@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Inventory — Dukaan AI{% endblock %}
+{% block content %}
+
+<div class="card">
+  <h2>📦 Inventory</h2>
+  <form method="get" class="row2" style="margin-bottom:14px;">
+    <div class="field" style="flex:2;">
+      <input type="text" name="q" placeholder="Search product name..." value="{{ q }}">
+    </div>
+    <div class="field" style="flex:0 0 auto;">
+      <button class="btn ghost" type="submit">Search</button>
+    </div>
+  </form>
+  <a class="btn" href="{{ url_for('inventory.add_product') }}">➕ Add New Product</a>
+</div>
+
+<div class="card">
+  {% if products %}
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for p in products %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.category or '—' }}</td>
+        <td>Rs. {{ "%.2f"|format(p.price) }}</td>
+        <td>{{ p.stock_qty }} {{ p.unit }}</td>
+        <td>
+          {% if p.is_low_stock %}
+            <span class="badge low">LOW STOCK</span>
+          {% else %}
+            <span class="badge ok">OK</span>
+          {% endif %}
+        </td>
+        <td>
+          <div class="btn-row">
+            <a class="btn ghost" href="{{ url_for('inventory.edit_product', product_id=p.id) }}">Edit</a>
+            <form method="post" action="{{ url_for('inventory.delete_product', product_id=p.id) }}"
+                  onsubmit="return confirm('Remove {{ p.name }} from inventory?');">
+              <button class="btn danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No products found. <a href="{{ url_for('inventory.add_product') }}">Add your first product →</a></p>
+  {% endif %}
+</div>
+
+{% endblock %}

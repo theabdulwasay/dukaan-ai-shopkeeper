@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Dukaan AI{% endblock %}
+{% block content %}
+
+<div class="stat-grid">
+  <div class="stat">
+    <div class="label">Products</div>
+    <div class="value">{{ total_products }}</div>
+  </div>
+  <div class="stat">
+    <div class="label">Sales Today</div>
+    <div class="value">{{ sales_count_today }}</div>
+  </div>
+  <div class="stat">
+    <div class="label">Revenue Today</div>
+    <div class="value">Rs. {{ "%.0f"|format(revenue_today) }}</div>
+  </div>
+  <div class="stat {{ 'warn' if low_stock else '' }}">
+    <div class="label">Low Stock Items</div>
+    <div class="value">{{ low_stock|length }}</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Quick Actions</h2>
+  <div class="btn-row">
+    <a class="btn" href="{{ url_for('billing.new_sale') }}">🧾 New Sale</a>
+    <a class="btn ghost" href="{{ url_for('inventory.add_product') }}">➕ Add Product</a>
+    <a class="btn ghost" href="{{ url_for('chat.index') }}">🤖 Ask AI Assistant</a>
+    <a class="btn ghost" href="{{ url_for('reports.index') }}">📊 View Reports</a>
+  </div>
+</div>
+
+{% if low_stock %}
+<div class="card">
+  <h2>⚠ Low Stock Alert</h2>
+  <table>
+    <thead><tr><th>Product</th><th>Stock</th><th>Threshold</th><th></th></tr></thead>
+    <tbody>
+      {% for p in low_stock %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.stock_qty }} {{ p.unit }}</td>
+        <td>{{ p.low_stock_threshold }}</td>
+        <td><a class="btn ghost" href="{{ url_for('inventory.edit_product', product_id=p.id) }}">Restock</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<div class="card">
+  <h2>Recent Sales</h2>
+  {% if recent_sales %}
+  <table>
+    <thead><tr><th>#</th><th>Customer</th><th>Items</th><th>Total</th><th>When</th></tr></thead>
+    <tbody>
+      {% for s in recent_sales %}
+      <tr>
+        <td><a href="{{ url_for('billing.receipt', sale_id=s.id) }}">#{{ s.id }}</a></td>
+        <td>{{ s.customer.name if s.customer else 'Walk-in' }}</td>
+        <td>{{ s.items|length }} item(s)</td>
+        <td>Rs. {{ "%.0f"|format(s.total_amount) }}</td>
+        <td>{{ s.created_at.strftime('%d %b, %I:%M %p') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No sales recorded yet. <a href="{{ url_for('billing.new_sale') }}">Record your first sale →</a></p>
+  {% endif %}
+</div>
+
+{% endblock %}

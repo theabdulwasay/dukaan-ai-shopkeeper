@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Receipt #{{ sale.id }} — Dukaan AI{% endblock %}
+{% block content %}
+
+<div class="card no-print">
+  <div class="btn-row">
+    <button class="btn" onclick="window.print()">🖨 Print Receipt</button>
+    <a class="btn ghost" href="{{ url_for('billing.new_sale') }}">🧾 New Sale</a>
+    <a class="btn ghost" href="{{ url_for('dashboard.index') }}">🏠 Dashboard</a>
+  </div>
+</div>
+
+<div class="receipt">
+  <div class="receipt-top">★ DUKAAN AI ★</div>
+  <div class="receipt-row"><span>Receipt #</span><span>{{ sale.id }}</span></div>
+  <div class="receipt-row"><span>Date</span><span>{{ sale.created_at.strftime('%d %b %Y, %I:%M %p') }}</span></div>
+  <div class="receipt-row"><span>Customer</span><span>{{ sale.customer.name if sale.customer else 'Walk-in' }}</span></div>
+  <div style="border-top:1px dashed var(--ink); margin:10px 0;"></div>
+
+  {% for item in sale.items %}
+  <div class="receipt-row">
+    <span>{{ item.product_name }} x{{ item.quantity }}</span>
+    <span>Rs. {{ "%.2f"|format(item.line_total) }}</span>
+  </div>
+  {% endfor %}
+
+  <div class="receipt-row receipt-total">
+    <span>TOTAL</span>
+    <span>Rs. {{ "%.2f"|format(sale.total_amount) }}</span>
+  </div>
+  <div class="receipt-tear"></div>
+</div>
+<p style="text-align:center; opacity:0.7; font-size:12px; margin-top:14px;" class="no-print">Thank you for shopping with us!</p>
+
+{% endblock %}

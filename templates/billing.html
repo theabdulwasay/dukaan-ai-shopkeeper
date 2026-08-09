@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}New Sale — Dukaan AI{% endblock %}
+{% block content %}
+
+<div class="card">
+  <h2>🧾 New Sale</h2>
+  <form method="post" action="{{ url_for('billing.checkout') }}" id="checkoutForm">
+    <input type="hidden" name="cart_json" id="cartJson" value="[]">
+
+    <div class="pos-grid">
+      <div class="pos-catalog">
+        <div class="field">
+          <label>Search Products</label>
+          <input type="text" id="productSearch" placeholder="Type to filter...">
+        </div>
+        <div id="productList">
+          {% for p in products %}
+          <div class="product-pick" data-name="{{ p.name|lower }}">
+            <div>
+              <strong>{{ p.name }}</strong><br>
+              <small>Rs. {{ "%.2f"|format(p.price) }} · stock: {{ p.stock_qty }} {{ p.unit }}</small>
+            </div>
+            <button type="button" onclick="addToCart({{ p.id }}, '{{ p.name|replace("'", "") }}', {{ p.price }}, {{ p.stock_qty }})">Add</button>
+          </div>
+          {% else %}
+          <p>No products yet. <a href="{{ url_for('inventory.add_product') }}">Add one first →</a></p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="pos-cart">
+        <h2 style="font-size:15px;">Cart</h2>
+        <div id="cartLines"><p id="emptyCart" style="opacity:0.6;">Cart is empty.</p></div>
+        <div class="cart-total">Total: Rs. <span id="cartTotal">0.00</span></div>
+
+        <div class="field" style="margin-top:16px;">
+          <label>Customer (optional)</label>
+          <select name="customer_id" id="customerSelect">
+            <option value="">Walk-in / no customer</option>
+            {% for c in customers %}
+            <option value="{{ c.id }}">{{ c.name }}{% if c.phone %} ({{ c.phone }}){% endif %}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="row2" id="newCustomerFields">
+          <div class="field">
+            <label>Or new customer name</label>
+            <input type="text" name="new_customer_name" placeholder="Optional">
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            <input type="text" name="new_customer_phone" placeholder="Optional">
+          </div>
+        </div>
+
+        <button class="btn" type="submit" id="checkoutBtn" style="width:100%;">Complete Sale</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/billing.js') }}"></script>
+{% endblock %}

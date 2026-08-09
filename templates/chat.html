@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}AI Assistant — Dukaan AI{% endblock %}
+{% block content %}
+
+<div class="card">
+  <h2>🤖 AI Assistant</h2>
+
+  <div class="mode-tabs">
+    <button type="button" class="mode-btn active" data-mode="qa" onclick="setMode('qa')">💬 Ask about my shop</button>
+    <button type="button" class="mode-btn" data-mode="description" onclick="setMode('description')">📦 Write product description</button>
+    <button type="button" class="mode-btn" data-mode="reply" onclick="setMode('reply')">✉ Reply to a customer</button>
+  </div>
+
+  <div class="field">
+    <label>Language</label>
+    <select id="langSelect">
+      <option value="English">English</option>
+      <option value="Roman Urdu (Urdu written in English letters)">Roman Urdu</option>
+      <option value="Urdu script">اردو (Urdu script)</option>
+    </select>
+  </div>
+
+  <div class="chat-window" id="chatWindow">
+    <div class="msg ai" id="introMsg">Hi! Ask me things like "what's low in stock?" or "how much did I sell today?" — I can see your live inventory and sales.</div>
+  </div>
+
+  <form id="chatForm" class="row2" style="align-items:flex-end;">
+    <div class="field" style="flex:1;">
+      <label id="inputLabel">Your question</label>
+      <textarea id="chatInput" placeholder="e.g. Kya sugar ka stock kam hai?" required></textarea>
+    </div>
+    <div class="field" style="flex:0 0 auto;">
+      <button class="btn" type="submit" id="sendBtn">Send</button>
+    </div>
+  </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

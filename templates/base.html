@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Dukaan AI{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="wrap">
+  <header class="signboard">
+    <div>
+      <h1>DUKAAN <span>AI</span></h1>
+      <p class="tagline">Inventory · Billing · Reports · AI Assistant</p>
+    </div>
+    <nav class="tabs">
+      <a href="{{ url_for('dashboard.index') }}" class="{{ 'active' if request.endpoint == 'dashboard.index' }}">🏠 Dashboard</a>
+      <a href="{{ url_for('inventory.list_products') }}" class="{{ 'active' if request.blueprint == 'inventory' }}">📦 Inventory</a>
+      <a href="{{ url_for('billing.new_sale') }}" class="{{ 'active' if request.blueprint == 'billing' }}">🧾 Billing</a>
+      <a href="{{ url_for('reports.index') }}" class="{{ 'active' if request.blueprint == 'reports' }}">📊 Reports</a>
+      <a href="{{ url_for('chat.index') }}" class="{{ 'active' if request.blueprint == 'chat' }}">🤖 AI Assistant</a>
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+
+  <footer class="foot">Dukaan AI — a shopkeeper's helper. AI outputs are generated text, please review before sending to customers.</footer>
+</div>
+</body>
+</html>

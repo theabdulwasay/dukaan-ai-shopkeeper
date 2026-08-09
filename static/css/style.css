@@ -1,0 +1,246 @@
+:root{
+  --paper:#F3ECD9;
+  --paper-dark:#E7DBB8;
+  --ink:#211F1A;
+  --ledger:#2F5233;
+  --ledger-dark:#203a24;
+  --stamp:#B2392C;
+  --mustard:#D9A441;
+  --line: rgba(33,31,26,0.15);
+  --ok:#2F5233;
+  --warn:#B2392C;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  background:var(--ledger-dark);
+  font-family:'Space Mono', monospace;
+  color:var(--ink);
+  min-height:100vh;
+}
+
+a{ color:inherit; }
+
+.wrap{ max-width:1080px; margin:0 auto; padding:20px 16px 60px; }
+
+/* ---------- Signboard header ---------- */
+.signboard{
+  background:var(--mustard);
+  border:4px solid var(--ink);
+  border-radius:4px;
+  padding:16px 20px;
+  position:relative;
+  transform:rotate(-0.4deg);
+  box-shadow:5px 5px 0 var(--ink);
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.signboard h1{
+  font-family:'Anton', sans-serif;
+  font-size:clamp(26px, 5vw, 36px);
+  letter-spacing:1.5px;
+  margin:0;
+  line-height:1;
+}
+.signboard h1 span{ color:var(--paper); -webkit-text-stroke:1.2px var(--ink); }
+.signboard .tagline{ font-size:11px; opacity:0.75; margin:4px 0 0; }
+
+nav.tabs{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+nav.tabs a{
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+  background:var(--paper);
+  border:2px solid var(--ink);
+  padding:8px 12px;
+  border-radius:5px;
+  box-shadow:2px 2px 0 var(--ink);
+  white-space:nowrap;
+}
+nav.tabs a.active{ background:var(--ledger); color:var(--paper); }
+nav.tabs a:hover{ transform:translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
+
+/* ---------- Cards / panels ---------- */
+.card{
+  background:var(--paper);
+  border:2px solid var(--ink);
+  border-radius:8px;
+  padding:20px;
+  margin-bottom:18px;
+  background-image: repeating-linear-gradient(var(--paper) 0 27px, var(--line) 27px 28px);
+}
+.card h2{
+  font-family:'Anton', sans-serif;
+  letter-spacing:1px;
+  font-size:20px;
+  margin:0 0 14px;
+  color:var(--ledger);
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+  gap:14px;
+  margin-bottom:18px;
+}
+.stat{
+  background:var(--paper);
+  border:2px solid var(--ink);
+  border-radius:6px;
+  padding:14px;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.stat .label{ font-size:11px; text-transform:uppercase; letter-spacing:1px; opacity:0.7; }
+.stat .value{ font-family:'Anton', sans-serif; font-size:26px; color:var(--ledger); margin-top:4px; }
+.stat.warn .value{ color:var(--stamp); }
+
+/* ---------- Tables ---------- */
+table{ width:100%; border-collapse:collapse; font-size:13px; }
+th, td{ text-align:left; padding:9px 8px; border-bottom:1px solid var(--line); }
+th{ font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:var(--ledger); }
+tr:hover td{ background:rgba(217,164,65,0.15); }
+.badge{
+  display:inline-block;
+  font-size:10px;
+  font-weight:700;
+  padding:2px 8px;
+  border-radius:10px;
+  border:1.5px solid var(--ink);
+}
+.badge.low{ background:var(--stamp); color:var(--paper); }
+.badge.ok{ background:var(--ledger); color:var(--paper); }
+
+/* ---------- Forms ---------- */
+.field{ margin-bottom:14px; }
+.field label{
+  display:block; font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:1px; margin-bottom:5px; color:var(--ledger);
+}
+input, textarea, select{
+  width:100%;
+  font-family:'Space Mono', monospace;
+  font-size:13.5px;
+  padding:9px 10px;
+  border:1.5px solid var(--ink);
+  border-radius:4px;
+  background:#fffef8;
+  color:var(--ink);
+}
+textarea{ resize:vertical; min-height:70px; }
+.row2{ display:flex; gap:12px; flex-wrap:wrap; }
+.row2 .field{ flex:1; min-width:150px; }
+
+/* ---------- Buttons ---------- */
+.btn{
+  font-family:'Space Mono', monospace;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:0.5px;
+  background:var(--ledger);
+  color:var(--paper);
+  border:2px solid var(--ink);
+  border-radius:5px;
+  padding:10px 16px;
+  cursor:pointer;
+  box-shadow:3px 3px 0 var(--ink);
+  transition:transform .1s ease, box-shadow .1s ease;
+  text-decoration:none;
+  display:inline-block;
+}
+.btn:hover{ transform:translate(1px,1px); box-shadow:2px 2px 0 var(--ink); }
+.btn.danger{ background:var(--stamp); }
+.btn.ghost{ background:var(--paper); color:var(--ink); }
+.btn:disabled{ opacity:0.55; cursor:progress; }
+.btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
+
+/* ---------- Flash messages ---------- */
+.flash{
+  padding:10px 14px; border-radius:5px; border:2px solid var(--ink);
+  margin-bottom:14px; font-size:13px; font-weight:700;
+}
+.flash.success{ background:var(--ledger); color:var(--paper); }
+.flash.error{ background:var(--stamp); color:var(--paper); }
+.flash.info{ background:var(--mustard); color:var(--ink); }
+
+/* ---------- Billing / POS ---------- */
+.pos-grid{ display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+.pos-catalog{ flex:1.4; min-width:280px; }
+.pos-cart{ flex:1; min-width:260px; }
+.product-pick{
+  display:flex; justify-content:space-between; align-items:center;
+  border:1.5px solid var(--ink); border-radius:5px; padding:8px 10px; margin-bottom:8px;
+  background:#fffef8;
+}
+.product-pick button{
+  font-family:'Space Mono', monospace; font-weight:700; font-size:12px;
+  background:var(--mustard); border:1.5px solid var(--ink); border-radius:4px;
+  padding:5px 10px; cursor:pointer;
+}
+.cart-line{ display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px dashed var(--line); font-size:13px; }
+.cart-line .qty-controls button{
+  width:22px; height:22px; border:1.5px solid var(--ink); background:var(--paper-dark);
+  border-radius:3px; cursor:pointer; font-weight:700;
+}
+.cart-total{ font-family:'Anton', sans-serif; font-size:22px; color:var(--ledger); text-align:right; margin-top:10px; }
+
+/* ---------- Receipt ---------- */
+.receipt{
+  background:#fffef8; max-width:320px; margin:0 auto; border:1px solid #d8d0b4;
+  box-shadow:0 6px 14px rgba(33,31,26,0.25); padding:20px 18px 12px;
+  font-family:'Space Mono', monospace; font-size:12.5px; line-height:1.6;
+}
+.receipt-top{
+  text-align:center; font-family:'Anton', sans-serif; letter-spacing:2px; font-size:14px;
+  color:var(--ledger); padding-bottom:8px; border-bottom:1px dashed var(--ink); margin-bottom:10px;
+}
+.receipt-row{ display:flex; justify-content:space-between; }
+.receipt-total{ border-top:1px dashed var(--ink); margin-top:8px; padding-top:8px; font-weight:700; }
+.receipt-tear{
+  height:10px; margin:8px -18px -12px;
+  background: radial-gradient(circle at 5px 0, transparent 5px, #fffef8 5px) top left/10px 10px repeat-x;
+}
+
+/* ---------- AI Chat ---------- */
+.chat-window{
+  background:#fffef8; border:1.5px solid var(--ink); border-radius:6px;
+  min-height:280px; max-height:420px; overflow-y:auto; padding:14px; margin-bottom:14px;
+}
+.msg{ margin-bottom:12px; max-width:85%; padding:9px 12px; border-radius:8px; font-size:13px; line-height:1.5; }
+.msg.user{ background:var(--mustard); margin-left:auto; }
+.msg.ai{ background:var(--paper-dark); border:1px solid var(--line); }
+.msg.error{ background:var(--stamp); color:var(--paper); }
+.mode-tabs{ display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+.mode-tabs button{
+  font-family:'Space Mono', monospace; font-size:11.5px; font-weight:700;
+  background:var(--paper-dark); border:1.5px solid var(--ink); border-radius:5px;
+  padding:6px 10px; cursor:pointer; opacity:0.65;
+}
+.mode-tabs button.active{ opacity:1; background:var(--ledger); color:var(--paper); }
+
+/* ---------- Report bars ---------- */
+.bar-chart{ display:flex; align-items:flex-end; gap:8px; height:140px; padding-top:10px; }
+.bar-col{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+.bar{ width:100%; background:var(--ledger); border:1.5px solid var(--ink); border-radius:3px 3px 0 0; }
+.bar-label{ font-size:9px; margin-top:4px; opacity:0.7; text-align:center; }
+
+footer.foot{ text-align:center; color:var(--paper); opacity:0.55; font-size:11px; margin-top:20px; }
+
+@media (max-width: 640px){
+  .signboard{ flex-direction:column; align-items:flex-start; }
+}
+
+@media print{
+  body{ background:#fff; }
+  nav, .signboard, footer, .no-print{ display:none !important; }
+  .receipt{ box-shadow:none; margin:0; }
+}
